@@ -6,7 +6,7 @@
 
 set(CMAKE_MIN_VERSION   "3.5.0")
 set(ECM_MIN_VERSION     "5.68.0")
-set(QT_MIN_VERSION      "5.12.0")
+set(QT_MIN_VERSION      "6.0.0")
 set(LIBRAW_MIN_VERSION  "0.18")
 
 cmake_minimum_required(VERSION ${CMAKE_MIN_VERSION})
@@ -71,7 +71,7 @@ include(FeatureSummary)
 
 ############## Find Packages ###################
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED NO_MODULE
     COMPONENTS
         Core
         Gui
@@ -95,7 +95,6 @@ ecm_setup_version(${LIBKDCRAW_LIB_VERSION}
 ############## Targets #########################
 
 add_definitions(
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050B00
     -DQT_DEPRECATED_WARNINGS_SINCE=0x060000
     -DQT_NO_KEYWORDS
     -DQT_NO_FOREACH

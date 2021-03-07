@@ -53,8 +53,8 @@ target_include_directories(KF5KDcraw
 
 target_link_libraries(KF5KDcraw
     PUBLIC
-        Qt5::Core
-        Qt5::Gui
+        Qt6::Core
+        Qt6::Gui
     PRIVATE
         ${LibRaw_LIBRARIES}
 )
