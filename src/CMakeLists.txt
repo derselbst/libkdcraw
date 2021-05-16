@@ -36,7 +36,7 @@ ecm_generate_headers(kdcraw_CamelCase_HEADERS
     REQUIRED_HEADERS kdcraw_HEADERS
 )
 
-add_library(KF5KDcraw SHARED ${kdcraw_LIB_SRCS})
+add_library(KF5KDcraw ${kdcraw_LIB_SRCS})
 add_library(KF5::KDcraw ALIAS KF5KDcraw)
 
 generate_export_header(KF5KDcraw
