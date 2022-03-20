@@ -1,7 +1,7 @@
 # - Find LibRaw
 # Find the LibRaw library <https://www.libraw.org>
 # This module defines
-#  LibRaw_VERSION_STRING, the version string of LibRaw
+#  LibRaw_VERSION, the version string of LibRaw
 #  LibRaw_INCLUDE_DIR, where to find libraw.h
 #  LibRaw_LIBRARIES, the libraries needed to use LibRaw (non-thread-safe)
 #  LibRaw_r_LIBRARIES, the libraries needed to use LibRaw (thread-safe)
@@ -55,7 +55,7 @@ IF(LibRaw_INCLUDE_DIR)
    SET(_libraw_version_patch "${CMAKE_MATCH_1}")
    
    IF(_version_major_match AND _version_minor_match AND _version_patch_match)
-      SET(LibRaw_VERSION_STRING "${_libraw_version_major}.${_libraw_version_minor}.${_libraw_version_patch}")
+      SET(LibRaw_VERSION "${_libraw_version_major}.${_libraw_version_minor}.${_libraw_version_patch}")
    ELSE()
       IF(NOT LibRaw_FIND_QUIETLY)
          MESSAGE(STATUS "Failed to get version information from ${LibRaw_INCLUDE_DIR}/libraw_version.h")
@@ -66,13 +66,22 @@ ENDIF()
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibRaw
                                   REQUIRED_VARS LibRaw_LIBRARIES LibRaw_INCLUDE_DIR
-                                  VERSION_VAR LibRaw_VERSION_STRING
+                                  VERSION_VAR LibRaw_VERSION
                                  )
 
-MARK_AS_ADVANCED(LibRaw_VERSION_STRING
+MARK_AS_ADVANCED(LibRaw_VERSION
                  LibRaw_INCLUDE_DIR
                  LibRaw_LIBRARIES
                  LibRaw_r_LIBRARIES
                  LibRaw_DEFINITIONS
                  LibRaw_r_DEFINITIONS
                  )
+
+if(LibRaw_FOUND AND NOT TARGET LibRaw::LibRaw)
+    add_library(LibRaw::LibRaw UNKNOWN IMPORTED)
+    set_target_properties(LibRaw::LibRaw PROPERTIES
+        IMPORTED_LOCATION "${LibRaw_LIBRARIES}"
+        INTERFACE_COMPILE_OPTIONS "${LibRaw_DEFINITIONS}"
+        INTERFACE_INCLUDE_DIRECTORIES "${LibRaw_INCLUDE_DIR}"
+    )
+endif()
