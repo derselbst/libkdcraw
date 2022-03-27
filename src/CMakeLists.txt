@@ -16,7 +16,7 @@ ecm_setup_version(${LIBKDCRAW_LIB_VERSION}
 
 kde_enable_exceptions()
 
-add_library(KDcraw SHARED)
+add_library(KDcraw)
 
 target_sources(KDcraw PRIVATE
     kdcraw.cpp
